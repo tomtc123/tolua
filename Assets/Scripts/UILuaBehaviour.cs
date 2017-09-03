@@ -68,10 +68,13 @@ public class UILuaBehaviour : MonoBehaviour {
 	}
 
 	public void AddClick(GameObject go, LuaFunction func, LuaTable luatable) {
+		if (go == null || func == null) {
+			Debug.LogError ("gameObject and function can't null");
+			return;
+		}
 		Button button = go.GetComponent<Button>();
 		if (button == null)
 			button = go.AddComponent<Button>();
-		if (go == null || func == null) return;
 		button.onClick.AddListener(delegate()
 		{
 			func.BeginPCall();

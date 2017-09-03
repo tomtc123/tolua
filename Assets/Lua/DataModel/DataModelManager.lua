@@ -1,3 +1,5 @@
+NetEvent = event("OnNetMsg", true)
+
 local M = {}
 
 local modelName = require("DataModel/DataModelName")
@@ -19,5 +21,15 @@ function M.Clear()
 end
 
 M.RegisterAll()
+
+function M.OnNetMsg(cmd, pb)
+	for k, v in ipairs(M.ModuleList) do
+		if v.OnNetMsg ~= nil then
+			v.OnNetMsg(cmd, pb)
+		end
+	end
+end
+
+NetEvent:Add(M.OnNetMsg)
 
 return M

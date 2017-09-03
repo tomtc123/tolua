@@ -12,4 +12,7 @@ function M:Clear()
     M.content = {}
 end
 
+function M:OnNetMsg(cmd, msg)
+end
+
 return M
