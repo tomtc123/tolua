@@ -14,6 +14,10 @@ function M:Start()
     print("UIBase.Start")
 end
 
+function M:OnDestroy()
+    print("UIBase.OnDestroy")
+end
+
 function M:Update()
 end
 
