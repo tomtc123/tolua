@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System;
 using System.Collections.Generic;
 using LuaInterface;
@@ -143,7 +144,13 @@ public static class CustomSettings
         _GT(typeof(RenderSettings)),                                                   
         _GT(typeof(BlendWeights)),           
         _GT(typeof(RenderTexture)),
-        _GT(typeof(Resources)),        
+        _GT(typeof(Resources)), 
+
+		//UGUI/
+		_GT(typeof(UILuaBehaviour)),
+		_GT(typeof(Button)),
+		_GT(typeof(Text)),
+		_GT(typeof(Image)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

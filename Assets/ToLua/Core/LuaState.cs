@@ -561,7 +561,7 @@ namespace LuaInterface
 #endif
         }
 
-        public void DoString(string chunk, string chunkName = "LuaState.cs")
+		public object[] DoString(string chunk, string chunkName = "LuaState.cs")
         {
 #if UNITY_EDITOR
             if (!beStart)
@@ -570,7 +570,7 @@ namespace LuaInterface
             }
 #endif
             byte[] buffer = Encoding.UTF8.GetBytes(chunk);
-            LuaLoadBuffer(buffer, chunkName);
+            return LuaLoadBuffer(buffer, chunkName);
         }
 
         public T DoString<T>(string chunk, string chunkName = "LuaState.cs")
@@ -579,7 +579,7 @@ namespace LuaInterface
             return LuaLoadBuffer<T>(buffer, chunkName);
         }
 
-        public void DoFile(string fileName)
+		public object[] DoFile(string fileName)
         {
 #if UNITY_EDITOR
             if (!beStart)
@@ -601,7 +601,7 @@ namespace LuaInterface
                 fileName = LuaFileUtils.Instance.FindFile(fileName);
             }
 
-            LuaLoadBuffer(buffer, fileName);
+            return LuaLoadBuffer(buffer, fileName);
         }
 
         public T DoFile<T>(string fileName)
@@ -2097,7 +2097,7 @@ namespace LuaInterface
             }
         }
 
-        protected void LuaLoadBuffer(byte[] buffer, string chunkName)
+		protected object[] LuaLoadBuffer(byte[] buffer, string chunkName)
         {
             LuaDLL.tolua_pushtraceback(L);
             int oldTop = LuaGetTop();
@@ -2105,9 +2105,10 @@ namespace LuaInterface
             if (LuaLoadBuffer(buffer, buffer.Length, chunkName) == 0)
             {
                 if (LuaPCall(0, LuaDLL.LUA_MULTRET, oldTop) == 0)
-                {                    
+                {        
+					object[] result = CheckObjects(oldTop);
                     LuaSetTop(oldTop - 1);
-                    return;
+					return result;
                 }
             }
 
