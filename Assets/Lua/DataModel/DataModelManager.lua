@@ -23,7 +23,7 @@ end
 M.RegisterAll()
 
 function M.OnNetMsg(cmd, pb)
-	for k, v in ipairs(M.ModuleList) do
+	for k, v in ipairs(M.allDataModel) do
 		if v.OnNetMsg ~= nil then
 			v.OnNetMsg(cmd, pb)
 		end
