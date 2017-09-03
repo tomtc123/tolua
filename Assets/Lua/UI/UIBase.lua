@@ -19,6 +19,7 @@ function M:OnDestroy()
 end
 
 function M:Update()
+    print("UIBase.Update")
 end
 
 function M:FindComponent(trans, path, comp)
@@ -46,5 +47,7 @@ end
 function M:AddClick(go, func)
     self.behaviour:AddClick(go.gameObject, func, self)
 end
+
+UpdateBeat:Add(M.Update)
 
 return M

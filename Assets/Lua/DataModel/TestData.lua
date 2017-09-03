@@ -5,7 +5,7 @@ local base = require("DataModel/DataModelBase")
 local M = class("TestData", base)
 
 function M:Init()
-    M.super.Init(self)
+    self.super:Init()
     print("TestData.Init")
 end
 

@@ -7,7 +7,7 @@ local M = class("UITest", base)
 local dataModelManager = require("DataModel/DataModelManager")
 
 function M:Awake()
-    M.super.Awake(self)
+    self.super:Awake()
     print("UITest.Awake")
     self.button = self:FindButton(self.transform, "Button")
     self.label = self:FindText(self.transform, "Button/Text")
@@ -15,10 +15,10 @@ function M:Awake()
 end
 
 function M:Start()
-    M.super.Start(self)
+    self.super:Start()
     print("UITest.Start")
 
-    M.TestCortinue()
+    --self:TestCortinue()
 end
 
 function M:Update()
@@ -29,25 +29,23 @@ function M:OnClick(go)
     self.label.text = "HelloWorld"
 end
 
-function M.CoFunc()
-    print('Coroutine started')    
-    for i = 0, 10, 1 do
-        --print(fib(i))                    
-        coroutine.wait(0.1)						
-    end	
-	print("current frameCount: "..Time.frameCount)
-	coroutine.step()
-	print("yield frameCount: "..Time.frameCount)
+function M:CoFunc(a,b)
+    print(a, b)
+	local c = 1
+    local t = 0
 
-	local www = UnityEngine.WWW("http://www.baidu.com")
-	coroutine.www(www)
-	local s = tolua.tolstring(www.bytes)
-	print(s:sub(1, 128))
-    print('Coroutine ended')
+	while t < 1 do
+        t = t + Time.deltaTime
+		coroutine.wait(1) 
+		print("Count: "..c, t)
+		c = c + 1
+	end
 end
 
-function M.TestCortinue()	
-    coroutine.start(M.CoFunc)
+function M:TestCortinue()	
+    coroutine.start(function()
+        self:CoFunc(1, 2)
+    end)
 end
 
 return M
